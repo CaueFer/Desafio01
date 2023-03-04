@@ -1,0 +1,156 @@
+"use strict";
+
+function validaForm() {
+  var valida = 1;
+  var telefone = $('input[name="usuario[telefone]"]').val();
+  var email = $('input[type="email"]').val();
+  $('#formNChat').find('[data-required="true"]').each(function () {
+    if (!$(this).val() || $(this).val().trim() == "") {
+      $(this).addClass('input_error');
+      $(this).parents('.form-group').find('.span_error').fadeIn("slow");
+      $(this).parents('.form-group').find('.span_error').text('Por favor, preencha o campo corretamente.');
+      $(this).focus();
+      var h = $('.container_body').height();
+      var w = $('.container_body').width();
+      sendMessageParent(h + 'px', w + 'x');
+      valida = 0;
+    } else {
+      $(this).removeClass('input_error');
+      $(this).parents('.form-group').find('.span_error').fadeOut("slow");
+      var h = $('.container_body').height();
+      var w = $('.container_body').width();
+      sendMessageParent(h + 'px', w + 'x');
+    }
+  });
+
+  if (!/^([\w\-]+\.)*[\w\- ]+@([\w\- ]+\.)+([\w\-]{2,3})$/.test(email) || email == "") {
+    $('.btnEntrar').prop('disabled', 0);
+    $('input[type="email"]').addClass('input_error');
+    $('input[type="email"]').parents('.form-group').find('span').fadeIn("slow");
+    $('input[type="email"]').parents('.form-group').find('small').addClass('small_error');
+    $('input[type="email"]').focus();
+    var h = $('.container_body').height();
+    var w = $('.container_body').width();
+    sendMessageParent(h + 'px', w + 'x');
+    valida = 0;
+  } else {
+    $('input[type="email"]').removeClass('input_error');
+    $('input[type="email"]').parents('.form-group').find('span').fadeOut("slow");
+    $('input[type="email"]').parents('.form-group').find('small').removeClass('small_error');
+    var h = $('.container_body').height();
+    var w = $('.container_body').width();
+    sendMessageParent(h + 'px', w + 'x');
+  }
+
+  var tel = validaTelefone(telefone, $('input[name="usuario[telefone]"]'));
+
+  if (valida == 0 || tel == 0) {
+    return false;
+  }
+
+  return true;
+}
+
+;
+
+function validaClicktoCall() {
+  var telefone = $('#clicktocall_telefone').val();
+  var elem = $('#clicktocall_telefone');
+  var tel = validaTelefone(telefone, elem);
+
+  if ($('.body_widget_clicktocall').is(':visible')) {
+    if (telefone != "") {
+      if (tel == 0) {
+        return false;
+      } else {
+        $('.envia_clicktocall').hide();
+        var mensagem = "Ligação em andamento, por favor, <b>verifique seu aparelho</b>.";
+        $('.msg_clicktocall').html(mensagem);
+        $('.msg_clicktocall').show();
+        return true;
+      }
+    } else {
+      elem.addClass('input_error');
+      elem.parents('.form-group').find('span').fadeIn("slow");
+      elem.parents('.form-group').find('span').text('Por favor, informe um número fixo/celular válido.');
+      var h = $('.container_body').height();
+      var w = $('.container_body').width();
+      sendMessageParent(h + 'px', w + 'x');
+      return false;
+    }
+  }
+}
+
+function validaTelefone(telefone, elem) {
+  if (telefone != "" && elem.length > 0) {
+    var valor = elem.val();
+    var tamanho = valor.length;
+    var numero = valor.charAt(5);
+    var ddd = valor.charAt(1);
+
+    if (ddd == 0) {
+      elem.addClass('input_error');
+      elem.parents('.form-group').find('span').fadeIn("slow");
+      elem.parents('.form-group').find('span').text('Por favor, informe um DDD válido.');
+      var h = $('.container_body').height();
+      var w = $('.container_body').width();
+      sendMessageParent(h + 'px', w + 'x');
+      return 0;
+    } else if (tamanho == 14) {
+      if (numero == 9 || numero == 8 || numero == 7 || numero == 6) {
+        elem.addClass('input_error');
+        elem.parents('.form-group').find('span').fadeIn("slow");
+        elem.parents('.form-group').find('span').text('Telefones celulares devem conter o 9° digito.');
+        var h = $('.container_body').height();
+        var w = $('.container_body').width();
+        sendMessageParent(h + 'px', w + 'x');
+        return 0;
+      } else if (numero == 0 || numero == 1) {
+        elem.addClass('input_error');
+        elem.parents('.form-group').find('span').fadeIn("slow");
+        elem.parents('.form-group').find('span').text('Por favor, informe um número fixo/celular válido.');
+        var h = $('.container_body').height();
+        var w = $('.container_body').width();
+        sendMessageParent(h + 'px', w + 'x');
+        return 0;
+      } else {
+        elem.removeClass('input_error');
+        elem.parents('.form-group').find('span').fadeOut("slow");
+        var h = $('.container_body').height();
+        var w = $('.container_body').width();
+        sendMessageParent(h + 'px', w + 'x');
+        return 1;
+      }
+    } else if (tamanho == 15) {
+      if (numero != 9) {
+        elem.addClass('input_error');
+        elem.parents('.form-group').find('span').fadeIn("slow");
+        elem.parents('.form-group').find('span').text('Telefones celulares devem conter o 9° digito.');
+        var h = $('.container_body').height();
+        var w = $('.container_body').width();
+        sendMessageParent(h + 'px', w + 'x');
+        return 0;
+      } else {
+        elem.removeClass('input_error');
+        elem.parents('.form-group').find('span').fadeOut("slow");
+        var h = $('.container_body').height();
+        var w = $('.container_body').width();
+        sendMessageParent(h + 'px', w + 'x');
+        return 1;
+      }
+    } else if (tamanho < 14) {
+      elem.addClass('input_error');
+      elem.parents('.form-group').find('span').fadeIn("slow");
+      elem.parents('.form-group').find('span').text('Por favor, informe um número fixo/celular válido.');
+      var h = $('.container_body').height();
+      var w = $('.container_body').width();
+      sendMessageParent(h + 'px', w + 'x');
+      return 0;
+    }
+  } else {
+    var h = $('.container_body').height();
+    var w = $('.container_body').width();
+    sendMessageParent(h + 'px', w + 'x');
+    return 1;
+  }
+}

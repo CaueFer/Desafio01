@@ -1,0 +1,244 @@
+"use strict";
+
+function sendMessageParent(height, width, bottom, right) {
+  window.parent.postMessage({
+    height: height,
+    width: width,
+    bottom: bottom,
+    right: right
+  }, "*");
+}
+
+function retornaDados(r_height, r_width) {
+  var SPMaskBehavior = function SPMaskBehavior(val) {
+    return val.replace(/\D/g, '').length === 11 ? '(00) 00000-0000' : '(00) 0000-00009';
+  },
+      spOptions = {
+    onKeyPress: function onKeyPress(val, e, field, options) {
+      field.mask(SPMaskBehavior.apply({}, arguments), options);
+    }
+  };
+
+  $('.icon_header').addClass('animated infinite bounce');
+  setTimeout(function () {
+    $('.icon_header').removeClass('animated infinite bounce');
+  }, 3000);
+  $('.selectMulti').select2();
+  $('input[name="usuario[telefone]"]').mask(SPMaskBehavior, spOptions);
+  $('#clicktocall_telefone').mask(SPMaskBehavior, spOptions);
+
+  if (r_width < 780) {
+    $('body').removeClass('nchat').addClass('nchat_mobile');
+
+    if ($('.container_body').is(':visible')) {
+      sendMessageParent('100%', '100%', '0px', '0px');
+    }
+
+    ;
+  } else if (r_width > 780) {
+    $('body').removeClass('nchat_mobile').addClass('nchat');
+
+    if ($('.container_body').is(':visible')) {
+      var h = $('.container_body').height();
+      sendMessageParent(h + 'px', '400px', '0px', '0px');
+    }
+  }
+
+  ;
+  $('.icon_header').on('click', function () {
+    if (r_width < 780) {
+      sendMessageParent('100%', '100%', '0px', '0px');
+      $('.container_body').fadeIn();
+    } else if (r_width > 780) {
+      $('.container_body').fadeIn();
+      $('.container_body').css('bottom', '0');
+
+      if ($('.nchat .body_widget').is(':visible')) {
+        var h = $('.container_body').height();
+        sendMessageParent(h + 'px', '400px', '0px', '0px');
+      } else {
+        if ($('body').hasClass('chat_mobile')) {
+          sendMessageParent('100%', '100%', '0px', '0px');
+        } else if ($('.body_conversation').is(':visible')) {
+          var h = $('.container_body').height();
+          sendMessageParent(h + 'px', '400px', '0px', '0px');
+        } else if ($('.satisfaction_survey').is(':visible')) {
+          var h = $('.container_body').height();
+          sendMessageParent(h + 'px', '400px', '0px', '0px');
+        } else {
+          var h = $('.container_body').height();
+          sendMessageParent(h + 'px', '400px', '0px', '0px');
+        }
+      }
+    }
+  });
+  $(".container_header").hover(function () {
+    if (!$('.container_body').is(':visible')) {
+      $('.icon_header').removeClass('animated infinite bounce');
+      var height = '300px';
+      var width = '120px';
+      sendMessageParent(height, width);
+      setTimeout(function () {
+        $('.icon_clicktocall_desktop').css("display", "block");
+        $('.icon_facebook_desktop').css("display", "block");
+        $('.icon_whatsapp_desktop').css("display", "block");
+        $('.icon_telegram_desktop').css("display", "block");
+      }, 10);
+    }
+  }, function () {
+    setTimeout(function () {
+      $('.icon_clicktocall_desktop').css("display", "none");
+      $('.icon_facebook_desktop').css("display", "none");
+      $('.icon_whatsapp_desktop').css("display", "none");
+      $('.icon_telegram_desktop').css("display", "none");
+    }, 10);
+  });
+  $('.icon_back').on('click', function () {
+    $('.container_body').css('bottom', '-650px');
+    $('.container_body').fadeOut();
+    var height = '140px';
+    var width = '120px';
+    var bottom = '0px';
+    var right = '0px';
+    setTimeout(function () {
+      sendMessageParent(height, width, bottom, right);
+    }, 400);
+  });
+  $('body').on('click', '.icon_clicktocall', function () {
+    var bottom = '0px';
+    var right = '0px';
+
+    if (r_width < 780) {
+      sendMessageParent('100%', '100%', bottom, right);
+      $('.body_widget').hide();
+      $('.body_widget_clicktocall').show();
+      $('.container_body').fadeIn();
+    } else if (r_width > 780) {
+      $('.body_widget').hide();
+      $('.body_widget_clicktocall').show();
+      $('.container_body').fadeIn();
+      var h = $('.container_body').height();
+      sendMessageParent(h + 'px', '400px', bottom, right);
+    }
+  });
+  $('body').on('click', '.icon_nchat', function () {
+    var bottom = '0px';
+    var right = '0px';
+
+    if (r_width < 780) {
+      sendMessageParent('100%', '100%', bottom, right);
+      $('.body_widget').show();
+      $('.body_widget_clicktocall').hide();
+      $('.container_body').fadeIn();
+    } else if (r_width > 780) {
+      $('.body_widget').show();
+      $('.body_widget_clicktocall').hide();
+      $('.container_body').fadeIn();
+      var h = $('.container_body').height();
+      sendMessageParent(h + 'px', '400px', bottom, right);
+    }
+  });
+  $('.login_conversation').on('click', function () {
+    $('.icon_clicktocall_desktop').hide();
+
+    if (r_width < 780) {
+      sendMessageParent('100%', '100%', '0px', '0px');
+    } else if (r_width > 780) {
+      var h = $('.container_body').height();
+      sendMessageParent(h + 'px', '400px', '0px', '0px');
+    }
+  });
+  $('.icon_close').on('click', function () {
+    $('.modal_close_conversation').show();
+  });
+  $('#btn_cancel_close_chat').on('click', function () {
+    $('.modal_close_conversation').hide();
+  });
+  $('body').on('click', '.icon_clicktocall_desktop', function () {
+    $('.body_widget').hide();
+    $('.satisfaction_survey').hide();
+    $('.body_widget').hide();
+    $('.container_body').fadeIn();
+    $('.body_widget_clicktocall').show();
+    $('.container_body').css('bottom', '0');
+    var h = $('.container_body').height();
+    var height = h + 'px';
+    var width = '400px';
+    sendMessageParent(height, width, '0px', '0px');
+  });
+}
+
+$('.punctuation_01 label i.fas').on('click mouseover', function () {
+  var punctuation_fas = $('.punctuation_01 label i.fas');
+  var punctuation_fas_this = $(this);
+  punctuation_survey(punctuation_fas, punctuation_fas_this);
+}); //Ao sair da div
+
+$('.punctuation_01').mouseleave(function () {
+  var punctuation_fas = $('.punctuation_01 label i.fas');
+  var punctuation_this = $(this);
+  mouseLeave(punctuation_fas, punctuation_this);
+});
+$('.punctuation_02 label i.fas').on('click mouseover', function () {
+  var punctuation_fas = $('.punctuation_02 label i.fas');
+  var punctuation_fas_this = $(this);
+  punctuation_survey(punctuation_fas, punctuation_fas_this);
+}); //Ao sair da div
+
+$('.punctuation_02').mouseleave(function () {
+  var punctuation_fas = $('.punctuation_02 label i.fas');
+  var punctuation_this = $(this);
+  mouseLeave(punctuation_fas, punctuation_this);
+});
+$('.punctuation_03 label i.fas').on('click mouseover', function () {
+  var punctuation_fas = $('.punctuation_03 label i.fas');
+  var punctuation_fas_this = $(this);
+  punctuation_survey(punctuation_fas, punctuation_fas_this);
+}); //Ao sair da div
+
+$('.punctuation_03').mouseleave(function () {
+  var punctuation_fas = $('.punctuation_03 label i.fas');
+  var punctuation_this = $(this);
+  mouseLeave(punctuation_fas, punctuation_this);
+});
+
+function punctuation_survey(punctuation_fas, punctuation_fas_this) {
+  // remove classe ativa de todas as estrelas
+  punctuation_fas.removeClass('active'); // pegar o valor do input da estrela clicada
+
+  var val = punctuation_fas_this.prev('input').val(); //percorrer todas as estrelas
+
+  punctuation_fas.each(function () {
+    /* checar de o valor clicado é menor ou igual do input atual
+    *  se sim, adicionar classe active
+    */
+    var $input = $(this).prev('input');
+
+    if ($input.val() <= val) {
+      $(this).addClass('active');
+    }
+  });
+}
+
+function mouseLeave(punctuation_fas, punctuation_this) {
+  //pegar o valor clicado
+  var val = punctuation_this.find('input:checked').val(); //se nenhum foi clicado remover classe de todos
+
+  if (val == undefined) {
+    punctuation_fas.removeClass('active');
+  } else {
+    //percorrer todas as estrelas
+    punctuation_fas.each(function () {
+      /* Testar o input atual do laço com o valor clicado
+      *  se maior, remover classe, senão adicionar classe
+      */
+      var $input = $(this).prev('input');
+
+      if ($input.val() > val) {
+        $(this).removeClass('active');
+      } else {
+        $(this).addClass('active');
+      }
+    });
+  }
+}

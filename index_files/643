@@ -1,0 +1,70 @@
+(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-MLM237T');
+var csGlobal = {
+    init: function(){
+        var expireDate = new Date();
+        var expireTime = expireDate.getTime()+3600000;
+
+        expireDate.setTime(expireTime);
+        if(document.URL.indexOf('utm_source') !== -1 && csGlobal.getCookie('csLeadOrigin') == null && csGlobal.getCookie('csLeadOrigin') !== 'cleversale'){
+            var url = new URL(document.URL);
+            var origin = url.searchParams.get("utm_source");
+            if(origin == null){
+                origin = 'Direct';
+            }
+            document.cookie = "csLeadOrigin="+origin+"; expires="+expireDate.toGMTString()+";path=/";
+        }
+    },
+    getCookie(name){
+        var v = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
+        return v ? v[2] : null;
+    }
+}
+csGlobal.init();
+
+
+    function wc_setCookie (cname, cvalue, exunit, exvalue) {
+        var d = new Date();
+        if (exunit == 'ms' || exunit == 'millis' || exunit == 'milliseconds')
+            d.setTime(d.getTime() + exvalue);
+        else if (exunit == 's' || exunit == 'seconds')
+            d.setTime(d.getTime() + (exvalue * 1000));
+        else if (exunit == 'm' || exunit == 'mins' || exunit == 'minutes')
+            d.setTime(d.getTime() + (exvalue * 1000 * 60));
+        else if (exunit == 'h' || exunit == 'hrs' || exunit == 'hours')
+            d.setTime(d.getTime() + (exvalue * 1000 * 60 * 60));
+        else if (exunit == 'd' || exunit == 'days')
+            d.setTime(d.getTime() + (exvalue * 1000 * 60 * 60 * 24));
+        var expires = "expires=" + d.toUTCString();
+        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    }
+
+    function wc_getCookie(cname) {
+        var name = cname + "=";
+        var ca = document.cookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+    }
+
+    // Verifying if there's already a fingerprint stored on localStorage or on application domain cookies
+    // before using the one that comes with requests cookies or the generated one
+    
+    var isLocalStorageCompatible = typeof (Storage) !== "undefined";
+
+    var csFingerprint = (isLocalStorageCompatible ? localStorage.getItem('csFingerprint') : null)
+        || wc_getCookie('csFingerprint') || '8baae570-c205-11eb-b610-57db2181a326';
+    
+    wc_setCookie('csFingerprint', csFingerprint, 'milliseconds', 622080000000);
+    if (isLocalStorageCompatible) localStorage.setItem('csFingerprint', csFingerprint);
+    

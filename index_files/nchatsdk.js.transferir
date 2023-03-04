@@ -1,0 +1,78 @@
+var jsscript = document.getElementsByTagName("script");
+var src = null;
+for (var i = 0; i < jsscript.length; i++) {
+    var pattern = /nchatsdk.js/i; // the name of your js, whose source you are looking for
+    if ( pattern.test( jsscript[i].getAttribute("src") ) )
+        src = jsscript[i].getAttribute("src");
+}
+
+var domain = src.slice(0, src.length - 12);
+if(domain == undefined || domain == null) throw "Erro ao acessar servidor NexChat";
+
+start(domain);
+
+var divNchat  = document.getElementById('nchat');
+var iframeEl = document.getElementById('iframe-sdk');
+
+window.onresize = function(event) {
+	var width = window.innerWidth;
+	var height = window.innerHeight;
+	sendMessage(JSON.stringify({ type : 'size', dado : { height : height,  width : width } }));
+};
+
+//Envia formulario
+var sendMessage = function (msg) {
+	iframeEl.contentWindow.postMessage(msg, '*');
+};
+bindEvent(iframeEl, 'load', function (e) {
+	var form = divNchat.getAttribute('chat-sdk');
+	var width = window.innerWidth;
+	var height = window.innerHeight;
+	sendMessage(JSON.stringify({ type : 'form' , dado : form }));
+    sendMessage(JSON.stringify({ type : 'size', dado : { height : height,  width : width } }));
+});
+
+//addEventListener support for IE8
+function bindEvent(element, eventName, eventHandler) {
+    if (element.addEventListener){
+        element.addEventListener(eventName, eventHandler, false);
+    } else if (element.attachEvent) {
+        element.attachEvent('on' + eventName, eventHandler);
+    }
+}
+
+// Listen to message from child window
+bindEvent(window, 'message', function (e) {
+    var divNchat  = document.getElementById('nchat');
+    divNchat.style.height = e.data.height;
+    divNchat.style.width = e.data.width;
+    divNchat.style.right = e.data.right;
+    divNchat.style.bottom = e.data.bottom;
+});
+
+function start(app){
+
+    var divNchat  = document.getElementById('nchat');
+    divNchat.style.position = 'fixed';
+    divNchat.style.bottom = '0px';
+    divNchat.style.right = '0px';
+    divNchat.style.width = '120px';
+    divNchat.style.height = '140px';
+    divNchat.style.zIndex = '99999';
+    divNchat.style.display = 'none';
+
+    // Create the iframe
+    var iframe = document.createElement('iframe');
+    iframe.setAttribute('src', app);
+    iframe.setAttribute('id', 'iframe-sdk');
+    iframe.style.width = 100 + '%';
+    iframe.style.height = 100 + '%';
+    iframe.style.border = 'none';
+    divNchat.appendChild(iframe);
+
+    setTimeout(() => {
+        divNchat.style.display = 'block';
+    }, 1000);
+
+}
+

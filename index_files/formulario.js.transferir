@@ -1,0 +1,251 @@
+"use strict";
+
+var formularioModel = {
+  idForm: null,
+  componentes: [],
+  endpoint: null,
+  init: function init(id, endpoint) {
+    this.idForm = id.replace("___$_", "");
+    this.endpoint = endpoint;
+  }
+};
+var formularioViewModel = {
+  init: function init(idForm, endpoint) {
+    formularioModel.init(idForm, endpoint);
+    formularioView.init();
+  },
+  retornaIdFormulario: function retornaIdFormulario() {
+    return formularioModel.idForm;
+  },
+  setaComponentes: function setaComponentes(componente) {
+    formularioModel.componentes.push(componente);
+  },
+  retornaComponentes: function retornaComponentes() {
+    return formularioModel.componentes;
+  },
+  retornaEndpoint: function retornaEndpoint() {
+    return formularioModel.endpoint;
+  }
+};
+var formularioView = {
+  init: function init() {
+    var id = formularioViewModel.retornaIdFormulario();
+    var url = formularioViewModel.retornaEndpoint() + '/client/formularios/get/' + id;
+    fetch(url).then(function (response) {
+      if (response.ok) {
+        return response.json().then(function (json) {
+          if (json.data) {
+            formularioView.carregaFormulario(json);
+            formularioView.recalculaAlturaChat();
+            formularioView.repassaAlturaParaIframe();
+          } else if (json.error) {
+            var app_chat = document.getElementById("app-chat");
+            var error = document.createTextNode('Error to load Chat | error: #35');
+            app_chat.appendChild(error);
+            formularioView.recalculaAlturaChat();
+            formularioView.repassaAlturaParaIframe();
+          }
+        });
+      } else {
+        console.debug('Network response was not ok.');
+      }
+    })["catch"](function (error) {
+      console.debug('There has been a problem with your fetch operation: ' + error.message);
+    });
+  },
+  carregaFormulario: function carregaFormulario(dados) {
+    if (!dados.data) {
+      console.debug('Error on load data');
+      return false;
+    }
+
+    for (var index in dados.data) {
+      componenteView.init(dados, index);
+      formularioViewModel.setaComponentes(componenteView.retornaComponente());
+    }
+
+    componentes = formularioViewModel.retornaComponentes();
+
+    if (!componentes || componentes.length == 0) {
+      return false;
+    }
+
+    var app_chat = document.getElementById("app-chat");
+    var box_campos = document.createElement('div');
+    box_campos.className = 'col-lg-12 col-md-12 col-sm-12 col-xs-12';
+
+    for (var index in componentes) {
+      componente = this.montaHtmlDosCampos(componentes[index]);
+      box_campos.appendChild(componente);
+    }
+
+    app_chat.appendChild(box_campos);
+  },
+  montaHtmlDosCampos: function montaHtmlDosCampos(componente) {
+    var div = document.createElement("div");
+    div.className = 'form-group col-lg-12 col-md-12 col-sm-12 col-xs-12';
+    div.insertAdjacentHTML('afterbegin', componente);
+    return div;
+  },
+  repassaAlturaParaIframe: function repassaAlturaParaIframe() {
+    var height_fale_conosco = document.getElementById('chat_nexcore').clientHeight;
+    window.parent.postMessage(String(height_fale_conosco + "px"), '*');
+  },
+  recalculaAlturaChat: function recalculaAlturaChat() {
+    var height_fale_conosco = document.getElementById('chat_nexcore');
+    var altura = height_fale_conosco.clientHeight;
+    var total_bottom = altura - 105;
+    height_fale_conosco.style.bottom = "-" + total_bottom + "px";
+  }
+};
+var componenteView = {
+  id: null,
+  name: null,
+  obrigatorio: false,
+  nome: null,
+  id_prefix: 'idfale_conosco_',
+  fila_componente: 'fila',
+  componente: null,
+  opcoes: [],
+  init: function init(dados, index) {
+    if (typeof dados.data[index] === 'undefined' || dados.data[index] == null) {
+      return;
+    }
+
+    var dado = dados.data[index];
+    this.id = this.id_prefix + dado.nome.replace(" ", "_").toLowerCase();
+    this.name = dado.nome.replace(" ", "_").toLowerCase();
+    this.nome = dado.nome;
+    this.obrigatorio = dado.obrigatorio;
+    this.opcoes = componenteView.setaOpcoes(dados, dado.opcoes);
+
+    switch (dado.form) {
+      case 'texto':
+        this.componente = this.texto();
+        break;
+
+      case 'mensagem':
+        this.componente = this.mensagem();
+        break;
+
+      case 'data_hora':
+        this.componente = this.data_hora();
+        break;
+
+      case 'duracao':
+        this.componente = this.duracao();
+        break;
+
+      case 'numero_inteiro':
+        this.componente = this.numero_inteiro();
+        break;
+
+      case 'numero_decimal':
+        this.componente = this.numero_decimal();
+        break;
+
+      case 'valor':
+        this.componente = this.valor();
+        break;
+
+      case 'uma opção':
+        if (this.name == this.fila_componente) {
+          this.componente = this.fila();
+        } else {
+          this.componente = this.uma_opcao();
+        }
+
+        break;
+
+      case 'varias_opcoes':
+        this.componente = this.varias_opcoes();
+        break;
+
+      case 'telefone':
+        this.componente = this.telefone();
+        break;
+
+      case 'e-mail':
+        this.componente = this.email();
+        break;
+
+      default:
+        this.componente = null;
+        break;
+    }
+  },
+  setaOpcoes: function setaOpcoes(dados, opcoes_default) {
+    var opcoes = [];
+
+    if (this.name == 'fila' && dados.filas.length > 0) {
+      for (var i in dados.filas) {
+        opcoes[dados.filas[i].idfila] = dados.filas[i].name;
+      }
+    } else {
+      opcoes = opcoes_default;
+    }
+
+    return opcoes;
+  },
+  retornaComponente: function retornaComponente() {
+    return this.componente;
+  },
+  texto: function texto() {
+    return label.constroiLabel(this.id, this.nome, this.obrigatorio) + '<input type="text" class="form-control" name="usuario[' + this.name + ']" id="' + this.id + '" value="" data-required="true"/>' + '<span class="span_error"></span>';
+  },
+  mensagem: function mensagem() {//TODO:: to implement
+  },
+  data_hora: function data_hora() {//TODO:: to implement
+  },
+  duracao: function duracao() {//TODO:: to implement
+  },
+  numero_inteiro: function numero_inteiro() {//TODO:: to implement
+  },
+  numero_decimal: function numero_decimal() {//TODO:: to implement
+  },
+  valor: function valor() {//TODO:: to implement
+  },
+  fila: function fila() {
+    var options = '<option value="">Selecione uma opção</option>';
+
+    for (var index in this.opcoes) {
+      options += '<option value="' + this.opcoes[index] + '_' + index + '">' + this.opcoes[index] + '</option>';
+    }
+
+    return label.constroiLabel(this.id, this.nome, this.obrigatorio) + '<select class="form-control" name="usuario[fila]" id="' + this.id + '" data-required="true">' + options + '</select>';
+  },
+  uma_opcao: function uma_opcao() {
+    var options = '<option value="">Selecione uma opção</option>';
+
+    for (var index in this.opcoes) {
+      options += '<option value="' + this.opcoes[index] + '">' + this.opcoes[index] + '</option>';
+    }
+
+    return label.constroiLabel(this.id, this.nome, this.obrigatorio) + '<select class="form-control" name="usuario[' + this.name + ']" id="' + this.id + '" data-required="true">' + options + '</select>';
+  },
+  varias_opcoes: function varias_opcoes() {
+    var options = '<option value="">Selecione uma opção</option>';
+
+    for (var index in this.opcoes) {
+      options += '<option value="' + this.opcoes[index] + '">' + this.opcoes[index] + '</option>';
+    }
+
+    return label.constroiLabel(this.id, this.nome, this.obrigatorio) + '<select multiple class="form-control" name="usuario[' + this.name + ']" id="' + this.id + '" data-required="true">' + options + '</select>';
+  },
+  telefone: function telefone() {
+    return label.constroiLabel(this.id, this.nome, this.obrigatorio) + '<input type="tel" class="form-control" name="usuario[' + this.name + ']" id="' + this.id + '" value="" />' + '<span class="span_error"></span>';
+  },
+  email: function email() {
+    return label.constroiLabel(this.id, this.nome, this.obrigatorio) + '<input type="email" class="form-control" name="usuario[' + this.name + ']" id="' + this.id + '" data-required="true"/>' + '<span class="span_error"></span>';
+  }
+};
+var label = {
+  constroiLabel: function constroiLabel(id, nome, obrigatorio) {
+    var obrigatorio_texto = obrigatorio === true ? "*" : "";
+    if (nome === 'Fila') nome = 'Departamento';
+    var label = '<label for="idfale_conosco_' + id + '" class="control-label">';
+    label += '<small>' + obrigatorio_texto + '</small>' + nome;
+    label += '</label>';
+    return label;
+  }
+};

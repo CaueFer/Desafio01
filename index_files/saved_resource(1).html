@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<!-- saved from url=(1042)https://jchermann.shoppush.com.br/?campaign_id=58804552cd2f5b318c54d4eb&client_id=579b50ad868af760191b8fd5&customer_id=$2wcyETQxRVdPh2dMF0RUZjWKJDcVJ1RyplW0IWTvRUSNFleuFldtNTWyhmZSlGVJ9UZxkVRHpXONpUeIVEOtlUT2$12&metadata=%7B%22btn_allow%22%3A%22Permitir%22%2C%22btn_deny%22%3A%22Agora%20n%26atilde%3Bo%22%2C%22powered%22%3A%22Powered%20by%20Linx%20Digital%22%2C%22are_asking%22%3A%22est%26aacute%3B%20solicitando%22%2C%22show_notifications%22%3A%22Mostrar%20notifica%26ccedil%3B%26otilde%3Bes%22%2C%22popup_wants_send%22%3A%22deseja%20enviar%20notifica%26ccedil%3B%26otilde%3Bes%22%2C%22popup_notification_title%22%3A%22Exemplo%20de%20Notifica%26ccedil%3B%26atilde%3Bo%22%2C%22popup_notification_message%22%3A%22Veja%20como%20aparecer%26aacute%3B%20em%20seu%20aparelho.%22%2C%22popup_domain%22%3A%22jchermann.com%22%2C%22popup_subdomain%22%3A%22jchermann.shoppush.com.br%22%2C%22popup_image%22%3A%22https%3A%2F%2Fstatic.shopback.net%2Fclients%2F579b50ad868af760191b8fd5%2Fimages%2Fshoppush_20170127_1187831329588b77afb4aa4766209113.jpeg%22%7D -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Ativar Notificações - ShopPush</title>
+    <link rel="shortcut icon" type="image/x-icon" href="https://jchermann.shoppush.com.br/favicon.ico">
+    <link rel="stylesheet" href="./style.css">
+
+    <script>
+    function getParameterByName(name, url) {
+        if (!url) {
+          url = window.location.href;
+        }
+        name = name.replace(/[\[\]]/g, "\\$&");
+        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, " "));
+    }
+
+    window.shopback = {
+        client_id: getParameterByName('client_id'),
+        customer_id: getParameterByName('customer_id'),
+    };
+
+    window.shoppush = {
+        is_popup: true,
+        campaign_id: getParameterByName('campaign_id')
+    };
+    </script>
+
+    <script src="./shoppush.js.transferir"></script><link id="shoppush-manifest" rel="manifest" href="https://jchermann.shoppush.com.br/manifest.json">
+</head>
+<body>
+
+<div id="black-wrapper"></div>
+<div id="white-wrapper"></div>
+
+<div id="mobile">
+    <div id="mobile-top-section">
+        <div id="mobile-top-section-wrapper">
+            <div id="mobile-top-section-content">
+                <div id="close-btn">
+                    <a href="https://jchermann.shoppush.com.br/?campaign_id=58804552cd2f5b318c54d4eb&amp;client_id=579b50ad868af760191b8fd5&amp;customer_id=$2wcyETQxRVdPh2dMF0RUZjWKJDcVJ1RyplW0IWTvRUSNFleuFldtNTWyhmZSlGVJ9UZxkVRHpXONpUeIVEOtlUT2$12&amp;metadata=%7B%22btn_allow%22%3A%22Permitir%22%2C%22btn_deny%22%3A%22Agora%20n%26atilde%3Bo%22%2C%22powered%22%3A%22Powered%20by%20Linx%20Digital%22%2C%22are_asking%22%3A%22est%26aacute%3B%20solicitando%22%2C%22show_notifications%22%3A%22Mostrar%20notifica%26ccedil%3B%26otilde%3Bes%22%2C%22popup_wants_send%22%3A%22deseja%20enviar%20notifica%26ccedil%3B%26otilde%3Bes%22%2C%22popup_notification_title%22%3A%22Exemplo%20de%20Notifica%26ccedil%3B%26atilde%3Bo%22%2C%22popup_notification_message%22%3A%22Veja%20como%20aparecer%26aacute%3B%20em%20seu%20aparelho.%22%2C%22popup_domain%22%3A%22jchermann.com%22%2C%22popup_subdomain%22%3A%22jchermann.shoppush.com.br%22%2C%22popup_image%22%3A%22https%3A%2F%2Fstatic.shopback.net%2Fclients%2F579b50ad868af760191b8fd5%2Fimages%2Fshoppush_20170127_1187831329588b77afb4aa4766209113.jpeg%22%7D#" onclick="window.close();" class="btn-close default-link">x</a>
+                </div>
+
+                <div class="title domainName">jchermann.com</div>
+                <p id="mobile-directions">deseja enviar notificações</p>
+
+                <div id="mobile-notification">
+                    <img id="mobile-notification-icon" class="notification-icon">
+                    <p id="mobile-notification-title" class="truncatable long desktop message notification-title"></p>
+                    <p id="mobile-notification-message" class="truncatable short desktop message notification-message"></p>
+                    <p id="mobile-notification-url" class="truncatable short desktop message"></p>
+                </div>
+
+                <div id="desktop-notification" style="display: block;">
+                    <img id="desktop-notification-icon" class="notification-icon" src="./shoppush_20170127_1187831329588b77afb4aa4766209113.jpeg">
+                    <p id="x">x</p>
+                    <p id="desktop-notification-title" class="truncatable mobile message notification-title">Exemplo de Notificação</p>
+                    <p id="desktop-notification-message" class="truncatable mobile message notification-message">Veja como aparecerá em seu aparelho.</p>
+                    <p id="desktop-notification-url" class="truncatable mobile message">jchermann.shoppush.com.br</p>
+                </div>
+
+                <p id="mobile-opt-out" class="truncatable opt-out message"></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+var isMobile = {
+    Android: function() {
+        return navigator.userAgent.match(/Android/i);
+    },
+    BlackBerry: function() {
+        return navigator.userAgent.match(/BlackBerry/i);
+    },
+    iOS: function() {
+        return navigator.userAgent.match(/iPhone|iPad|iPod/i);
+    },
+    Opera: function() {
+        return navigator.userAgent.match(/Opera Mini/i);
+    },
+    Windows: function() {
+        return navigator.userAgent.match(/IEMobile/i);
+    },
+    any: function() {
+        return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows());
+    }
+};
+
+var data = JSON.parse(decodeURIComponent(getParameterByName('metadata')));
+
+if (data && typeof data === 'object') {
+    document.querySelector('.domainName').innerHTML = data['popup_domain'];
+    document.querySelector('#mobile-directions').innerHTML = data['popup_wants_send'];
+
+    if (isMobile.any()) {
+        document.querySelector('#mobile-notification-icon').src = data['popup_image'];
+        document.querySelector('#mobile-notification-title').innerHTML = data['popup_notification_title'];
+        document.querySelector('#mobile-notification-message').innerHTML = data['popup_notification_message'];
+        document.querySelector('#mobile-notification-url').innerHTML = data['popup_subdomain'];
+
+        document.querySelector('#mobile-notification').style.display = 'block';
+    } else {
+        document.querySelector('#desktop-notification-icon').src = data['popup_image'];
+        document.querySelector('#desktop-notification-title').innerHTML = data['popup_notification_title'];
+        document.querySelector('#desktop-notification-message').innerHTML = data['popup_notification_message'];
+        document.querySelector('#desktop-notification-url').innerHTML = data['popup_subdomain'];
+
+        document.querySelector('#desktop-notification').style.display = 'block';
+    }
+} else {
+    document.body.innerHTML = '';
+    window.close();
+}
+</script>
+
+</body></html>

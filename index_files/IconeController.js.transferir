@@ -1,0 +1,93 @@
+"use strict";
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var IconeController = /*#__PURE__*/function () {
+  function IconeController(_elemento) {
+    _classCallCheck(this, IconeController);
+
+    this._iconesDesktop = new Icones();
+    this._iconesMobile = new Icones();
+    this._iconesClickToCall = new Icones();
+    this._navegador = new Navegador();
+    this._imagens = ['images/icon-nchat-clicktocall.svg', 'images/icon-whatsapp-rounded.svg', 'images/icon-messenger-rounded.svg', 'images/icon-telegram-rounded.svg', 'images/icon-nchat-rounded.svg'];
+  }
+
+  _createClass(IconeController, [{
+    key: "adicionar",
+    value: function adicionar(ativo, elemento, urls) {
+      var _this = this;
+
+      if (!ativo) return;
+      this._elemento = elemento;
+      this._iconeViewDesktop = new IconeView("#redes-sociais-desktop");
+      this._iconeViewMobile = new IconeView("#redes-sociais");
+      this._iconesViewClickToCall = new IconeView("#redes-sociais-clicktocall");
+      var url_Array = urls.filter(function (valor) {
+        return valor.origem == _this._elemento;
+      });
+      var url = '#';
+
+      if (url_Array.length > 0) {
+        url = url_Array.shift().url;
+      }
+
+      switch (this._elemento) {
+        case 'facebook':
+          this._imagem = this._imagens[2];
+          break;
+
+        case 'whatsapp':
+          this._imagem = this._imagens[1];
+          url = !this._navegador.ehMobile() ? this.trocaUrlWhatsAppParaDesktop(url) : url;
+          break;
+
+        case 'telegram':
+          this._imagem = this._imagens[3];
+          break;
+
+        case 'nchat':
+          this._imagem = this._imagens[4];
+          break;
+
+        default:
+          this._imagem = this._imagens[0];
+          break;
+      }
+
+      var iconeDesktop = new Icone(this._elemento, this._imagem, url, 'D');
+      var iconeMobile = new Icone(this._elemento, this._imagem, url, 'M');
+      var iconeClickToCall = new Icone(this._elemento, this._imagem, url, 'M');
+
+      if (this._elemento != 'nchat') {
+        this._iconesMobile.adiciona(iconeMobile);
+
+        this._iconesDesktop.adiciona(iconeDesktop);
+      }
+
+      if (this._elemento != 'clicktocall') {
+        this._iconesClickToCall.adiciona(iconeClickToCall);
+      }
+    }
+  }, {
+    key: "trocaUrlWhatsAppParaDesktop",
+    value: function trocaUrlWhatsAppParaDesktop(url) {
+      return url.replace('https://api', 'https://web');
+    }
+  }, {
+    key: "mostrar",
+    value: function mostrar() {
+      this._iconeViewDesktop.update(this._iconesDesktop);
+
+      this._iconeViewMobile.update(this._iconesMobile);
+
+      this._iconesViewClickToCall.update(this._iconesClickToCall);
+    }
+  }]);
+
+  return IconeController;
+}();

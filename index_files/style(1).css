@@ -1,0 +1,179 @@
+@font-face {
+  font-family: 'icomoon';
+  src:  url('icomoon.eot?ktgost');
+  src:  url('icomoon.eot?ktgost#iefix') format('embedded-opentype'),
+    url('icomoon.ttf?ktgost') format('truetype'),
+    url('icomoon.woff?ktgost') format('woff'),
+    url('icomoon.svg?ktgost#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-nex-remove:before {
+  content: "\e927";
+}
+.icon-nex-nchat:before {
+  content: "\e926";
+}
+.icon-nex-phone-turn-off:before {
+  content: "\e920";
+}
+.icon-nex-campaigngroup:before {
+  content: "\e91e";
+  color: #727272;
+}
+.icon-nex-numbernine2:before {
+  content: "\e91f";
+  color: #727272;
+}
+.icon-nex-sendtoserver:before {
+  content: "\e91d";
+  color: #727272;
+}
+.icon-nex-pagesearch:before {
+  content: "\e91c";
+  color: #727272;
+}
+.icon-nex-numbernine:before {
+  content: "\e91b";
+  color: #727272;
+}
+.icon-nex-blacklistdelete:before {
+  content: "\e91a";
+  color: #727272;
+}
+.icon-nex-enablecodecs:before {
+  content: "\e919";
+  color: #727272;
+}
+.icon-nex-campaignxsupervisor:before {
+  content: "\e918";
+  color: #727272;
+}
+.icon-nex-queuexpa:before {
+  content: "\e917";
+  color: #727272;
+}
+.icon-nex-queuexagents:before {
+  content: "\e916";
+  color: #727272;
+}
+.icon-nex-switch-disabled:before {
+  content: "\e914";
+  color: #666;
+}
+.icon-nex-switch-active:before {
+  content: "\e915";
+  color: #666;
+}
+.icon-nex-special-add:before {
+  content: "\e913";
+  color: #727272;
+}
+.icon-nex-special-edit:before {
+  content: "\e912";
+}
+.icon-nex-assignement-turned-in:before {
+  content: "\e911";
+}
+.icon-nex-record:before {
+  content: "\e910";
+}
+.icon-nex-redial:before {
+  content: "\e90f";
+}
+.icon-nex-skull:before {
+  content: "\e90e";
+}
+.icon-nex-agend-download:before {
+  content: "\e90d";
+}
+.icon-nex-chat:before {
+  content: "\e900";
+}
+.icon-nex-megaphone .path1:before {
+  content: "\e901";
+  color: rgb(23, 22, 24);
+}
+.icon-nex-megaphone .path2:before {
+  content: "\e902";
+  margin-left: -1em;
+  color: rgb(81, 80, 81);
+}
+.icon-nex-megaphone .path3:before {
+  content: "\e903";
+  margin-left: -1em;
+  color: rgb(69, 68, 69);
+}
+.icon-nex-megaphone .path4:before {
+  content: "\e904";
+  margin-left: -1em;
+  color: rgb(73, 72, 74);
+}
+.icon-nex-megaphone .path5:before {
+  content: "\e905";
+  margin-left: -1em;
+  color: rgb(52, 51, 53);
+}
+.icon-nex-megaphone .path6:before {
+  content: "\e906";
+  margin-left: -1em;
+  color: rgb(138, 138, 139);
+}
+.icon-nex-megaphone .path7:before {
+  content: "\e907";
+  margin-left: -1em;
+  color: rgb(94, 94, 95);
+}
+.icon-nex-megaphone .path8:before {
+  content: "\e908";
+  margin-left: -1em;
+  color: rgb(0, 0, 0);
+}
+.icon-nex-ring-phone .path1:before {
+  content: "\e909";
+  color: rgb(0, 0, 0);
+}
+.icon-nex-ring-phone .path2:before {
+  content: "\e90a";
+  margin-left: -1em;
+  color: rgb(0, 0, 0);
+}
+.icon-nex-ring-phone .path3:before {
+  content: "\e90b";
+  margin-left: -1em;
+  color: rgb(1, 1, 0);
+}
+.icon-nex-timer:before {
+  content: "\e90c";
+}
+.icon-avatar-agent:before {
+  content: "\e921";
+}
+.icon-avatar-bot:before {
+  content: "\e922";
+}
+.icon-avatar-user:before {
+  content: "\e923";
+}
+.icon-nex-messenger:before {
+  content: "\e924";
+}
+.icon-nex-internalmsg:before {
+  content: "\e925";
+}

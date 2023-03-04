@@ -1,0 +1,113 @@
+"use strict";
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var Parametro = /*#__PURE__*/function () {
+  function Parametro(_pilotoclicktocall, _ativaamd, _expandido, _tipopiloto, idpiloto, _ativawhatsapp, _ativamessenger, _ativatelegram, _urls, _verMensagensRobo, _idccusto, _idWidget, _ociosidade, _corbackground, _cortexto) {
+    _classCallCheck(this, Parametro);
+
+    var _idpiloto = _tipopiloto == "R" ? idpiloto[0] : idpiloto.join(',');
+
+    Object.assign(this, {
+      _pilotoclicktocall: _pilotoclicktocall,
+      _ativaamd: _ativaamd,
+      _expandido: _expandido,
+      _tipopiloto: _tipopiloto,
+      _idpiloto: _idpiloto,
+      _ativawhatsapp: _ativawhatsapp,
+      _ativamessenger: _ativamessenger,
+      _ativatelegram: _ativatelegram,
+      _urls: _urls,
+      _verMensagensRobo: _verMensagensRobo,
+      _idccusto: _idccusto,
+      _idWidget: _idWidget,
+      _ociosidade: _ociosidade,
+      _corbackground: _corbackground,
+      _cortexto: _cortexto
+    });
+    Object.freeze(this);
+  }
+
+  _createClass(Parametro, [{
+    key: "pilotoClickToCall",
+    get: function get() {
+      return this._pilotoclicktocall;
+    }
+  }, {
+    key: "ativaAmd",
+    get: function get() {
+      return this._ativaamd;
+    }
+  }, {
+    key: "expandido",
+    get: function get() {
+      return this._expandido;
+    }
+  }, {
+    key: "tipoPiloto",
+    get: function get() {
+      return this._tipopiloto;
+    }
+  }, {
+    key: "idPiloto",
+    get: function get() {
+      return this._idpiloto;
+    }
+  }, {
+    key: "ativaWhatsapp",
+    get: function get() {
+      return this._ativawhatsapp;
+    }
+  }, {
+    key: "ativaMessenger",
+    get: function get() {
+      return this._ativamessenger;
+    }
+  }, {
+    key: "ativaTelegram",
+    get: function get() {
+      return this._ativatelegram;
+    }
+  }, {
+    key: "getUrls",
+    get: function get() {
+      return this._urls;
+    }
+  }, {
+    key: "verMensagensRobo",
+    get: function get() {
+      return this._verMensagensRobo;
+    }
+  }, {
+    key: "idCCusto",
+    get: function get() {
+      return this._idccusto;
+    }
+  }, {
+    key: "idWidget",
+    get: function get() {
+      return this._idWidget;
+    }
+  }, {
+    key: "ociosidade",
+    get: function get() {
+      return this._ociosidade;
+    }
+  }, {
+    key: "corBackground",
+    get: function get() {
+      return this._corbackground;
+    }
+  }, {
+    key: "corTexto",
+    get: function get() {
+      return this._cortexto;
+    }
+  }]);
+
+  return Parametro;
+}();

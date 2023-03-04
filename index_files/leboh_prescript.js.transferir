@@ -1,0 +1,111 @@
+window.SizebayPrescript = () => ({
+  getPermalink() {
+    const permalink = window.location.href
+
+    return permalink
+  },
+  getIntegration() {
+    const appUrl = `https://vfr-v3-production.sizebay.technology/V4/implantation/index.js`
+
+    let app = document.createElement('script')
+    app.id = 'szb-vfr__base'
+    app.setAttribute('src', appUrl)
+    document.querySelector('head').appendChild(app)
+  },
+  getAnchor() {
+    return {
+      mobile: 'div#bf-buy-button',
+      web: 'div#bf-buy-button'
+    }
+  },
+  getTenantId() {
+    return 1070
+  },
+  getButtons() {
+    return {
+      order: [
+        { name: 'vfr', text: 'Descubra seu tamanho' },
+        { name: 'chart', text: null }
+      ],
+      position: 'before',
+      class: 'vfr__button--clean'
+    }
+  },
+  getLanguage() {
+    return 'br'
+  },
+  getRecommendationText() {
+    return {
+      default: 'Recomendamos "{size}" para  "{profileName}"',
+      simplified: 'Recomendamos o tamanho "{size}"',
+      order: 'after'
+    }
+  }
+})
+const createCustomStyle = () => {
+  const styles = [
+    'https://static.sizebay.technology/1070/styles_v4.css',
+    'https://static.sizebay.technology/font/stores/fontRuler/styles.css'
+  ]
+
+  for (const iterator of styles) {
+    let linkElem = document.createElement('link')
+
+    linkElem.setAttribute('rel', 'stylesheet')
+    linkElem.setAttribute('type', 'text/css')
+    linkElem.setAttribute('href', iterator)
+
+    document.querySelector('body').appendChild(linkElem)
+  }
+}
+
+const createElemSpark = () => {
+  var elementBtnFittingRoom = document.querySelector('#szb-vfr-button')
+  var elementBtnSizeChart = document.querySelector('#szb-chart-button')
+
+  for (var i = 0; i < 3; i++) {
+    var createElemSparkFittingRoom = document.createElement('div')
+    var createElemSparkSizeChart = document.createElement('div')
+
+    createElemSparkFittingRoom.setAttribute('class', 'spark-' + i)
+    createElemSparkSizeChart.setAttribute('class', 'spark-' + i)
+
+    elementBtnFittingRoom.appendChild(createElemSparkFittingRoom)
+    elementBtnSizeChart.appendChild(createElemSparkSizeChart)
+  }
+}
+;(() => {
+  const { SizebayPrescript } = window
+  createCustomStyle()
+  SizebayPrescript().getIntegration()
+
+  const permalink = SizebayPrescript().getPermalink()
+  const tenantId = SizebayPrescript().getTenantId()
+  const buttons = SizebayPrescript().getButtons()
+  const anchor = SizebayPrescript().getAnchor()
+  const lang = SizebayPrescript().getLanguage()
+  const recommendation = SizebayPrescript().getRecommendationText()
+  const tick = 1000
+  let bool = true
+
+  const payload = {
+    permalink,
+    tenantId,
+    buttons,
+    anchor,
+    lang,
+    recommendation
+  }
+
+  const loaded = setInterval(() => {
+    if (!document.querySelectorAll('.vfr__container').length && bool) {
+      window.Sizebay.Implantation(payload)
+      bool = false
+    }
+
+    if (document.querySelectorAll('#szb-vfr-button').length > 0) {
+      createElemSpark()
+      clearInterval(loaded)
+    }
+  }, tick)
+})()

@@ -1,0 +1,96 @@
+"use strict";
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var CoresController = /*#__PURE__*/function () {
+  function CoresController(_corbackground, _cortexto_) {
+    _classCallCheck(this, CoresController);
+
+    if (!sessionStorage.getItem('NexChatParams')) {
+      this._corbackground = _corbackground ? _corbackground : '#881812';
+      this._cortexto = _cortexto_ ? _cortexto_ : '#FFFFFF';
+      sessionStorage.setItem('NexChatParams', JSON.stringify({
+        background: this._corbackground,
+        texto: this._cortexto
+      }));
+    } else {
+      var cores = JSON.parse(sessionStorage.getItem('NexChatParams'));
+      this._corbackground = cores.background;
+      this._cortexto = cores.texto;
+    }
+  }
+
+  _createClass(CoresController, [{
+    key: "trocaCor",
+    value: function trocaCor() {
+      var divIconHeader = document.querySelector('.icon_header');
+
+      this._troca(divIconHeader);
+
+      divIconHeader.style.borderColor = "#".concat(this._corbackground);
+      var divHeaderActions = document.querySelector('.header_actions');
+
+      this._troca(divHeaderActions);
+    }
+  }, {
+    key: "trocaMensagemGenerica",
+    value: function trocaMensagemGenerica() {
+      var mensagemInfo = document.querySelectorAll('.mensagem_generica--js');
+
+      for (var index = 0; index < mensagemInfo.length; index++) {
+        var element = mensagemInfo[index];
+
+        this._troca(element);
+      }
+    }
+  }, {
+    key: "trocaModalCloseConversation",
+    value: function trocaModalCloseConversation() {
+      var _this = this;
+
+      var modalCloseConversation = document.querySelector('.modal_close_conversation');
+      var botoesModal = document.querySelectorAll('.modal_close_conversation a.btn');
+
+      this._troca(modalCloseConversation);
+
+      if (botoesModal.length > 0) {
+        botoesModal.forEach(function (botao) {
+          return _this._troca(botao);
+        });
+      }
+    }
+  }, {
+    key: "trocaModalDisconnection",
+    value: function trocaModalDisconnection() {
+      var modalCloseDisconnection = document.querySelector('.modal_close_disconnection');
+      var labelCloseDisconnection = document.querySelector('.modal_close_disconnection .label_close');
+
+      this._troca(modalCloseDisconnection);
+
+      this._troca(labelCloseDisconnection);
+    }
+  }, {
+    key: "trocaModalCloseError",
+    value: function trocaModalCloseError() {
+      var modalCloseError = document.querySelector('.modal_close_error');
+      var labelCloseError = document.querySelector('.modal_close_error .label_close');
+
+      this._troca(modalCloseError);
+
+      this._troca(labelCloseError);
+    }
+  }, {
+    key: "_troca",
+    value: function _troca(div) {
+      if (div == null) return false;
+      div.style.background = "".concat(this._corbackground);
+      div.style.color = "".concat(this._cortexto);
+    }
+  }]);
+
+  return CoresController;
+}();

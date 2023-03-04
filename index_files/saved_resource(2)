@@ -1,0 +1,1 @@
+var js = document.createElement('script'); js.type = 'text/javascript'; js.src='//ca.enviou.com.br/js/ca-vtex.js'; js.setAttribute('async',''); document.body.appendChild(js);var js = document.createElement('script'); js.type = 'text/javascript'; js.text = 'CLIENT_TOKEN = "28042021084113ZTT";'; document.body.appendChild(js);

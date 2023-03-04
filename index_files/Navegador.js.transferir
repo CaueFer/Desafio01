@@ -1,0 +1,34 @@
+"use strict";
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var Navegador = /*#__PURE__*/function () {
+  function Navegador() {
+    _classCallCheck(this, Navegador);
+
+    this.navegador = window.navigator.userAgent;
+    this.MobileUserAgents = ['Android', 'BlackBerry', 'iPhone|iPad|iPod', 'Opera Mini', 'IEMobile'];
+  }
+
+  _createClass(Navegador, [{
+    key: "ehMobile",
+    value: function ehMobile() {
+      var retorno = [];
+
+      for (var index = 0; index < this.MobileUserAgents.length; index++) {
+        var agent = this.MobileUserAgents[index];
+        var regex = new RegExp(agent, 'i');
+        var test = this.navegador.match(regex) == null ? false : true;
+        retorno.push(test);
+      }
+
+      return retorno.indexOf(true) >= 0 ? true : false;
+    }
+  }]);
+
+  return Navegador;
+}();

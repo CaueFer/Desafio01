@@ -1,0 +1,69 @@
+"use strict";
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var Icone = /*#__PURE__*/function () {
+  function Icone(_nome, _imagemUrl, _linkExterno, _tipoRenderizacao) {
+    _classCallCheck(this, Icone);
+
+    this._cssclassedesktop = "icon_".concat(_nome, "_desktop");
+    this._cssclassemobile = "icon_".concat(_nome);
+    this._cssclasse = _tipoRenderizacao == "D" ? this._cssclassedesktop : this._cssclassemobile;
+    this._nome = this.capitalizeFirstLetter(_nome);
+    this._nome = this._nome == "Clicktocall" ? "Click to Call" : this._nome;
+    Object.assign(this, {
+      _imagemUrl: _imagemUrl,
+      _linkExterno: _linkExterno,
+      _tipoRenderizacao: _tipoRenderizacao
+    });
+    Object.freeze(this);
+  }
+
+  _createClass(Icone, [{
+    key: "capitalizeFirstLetter",
+    value: function capitalizeFirstLetter(string) {
+      return string.charAt(0).toUpperCase() + string.slice(1);
+    }
+  }, {
+    key: "nome",
+    get: function get() {
+      return this._nome;
+    }
+  }, {
+    key: "imagemUrl",
+    get: function get() {
+      return this._imagemUrl;
+    }
+  }, {
+    key: "linkExterno",
+    get: function get() {
+      return this._linkExterno;
+    }
+  }, {
+    key: "cssClasse",
+    get: function get() {
+      return this._cssclasse;
+    }
+  }, {
+    key: "cssClassDesktop",
+    get: function get() {
+      return this._cssclassedesktop;
+    }
+  }, {
+    key: "cssClasseMobile",
+    get: function get() {
+      return this._cssclassemobile;
+    }
+  }, {
+    key: "tipoRenderizacao",
+    get: function get() {
+      return this._tipoRenderizacao;
+    }
+  }]);
+
+  return Icone;
+}();

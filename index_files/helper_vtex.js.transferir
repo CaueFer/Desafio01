@@ -1,0 +1,104 @@
+var _st_page = false;
+
+if (/\/p$/.test(location.pathname)) {
+  _view = {
+    url: location.href.split('?')[0]
+  };
+
+  try {
+    _st_app.vp(_view);
+  } catch (e) {}
+} else if (location.pathname === "/checkout" || location.pathname === "/checkout/") {
+  _st_page = 'cart';
+
+  if (!window.st_sleep) {
+
+    var st_sleep = setInterval(function() {
+      _st_cart = {
+        url: [],
+        qty: [],
+      };
+
+      // var itens = document.querySelectorAll('.product-item:not(.hide) td.product-name > a');
+      var itens = document.querySelectorAll('.product-item:not(.hide) td.product-name > a[id^="product-name"]');
+
+      var lref = location.href;
+      if (lref.indexOf('/cart') > -1 || lref.indexOf('/#cart') > -1) {
+        var qts = document.querySelectorAll('td.quantity input');
+      } else if (lref.indexOf('/email') > -1 || lref.indexOf('/profile') > -1 || lref.indexOf('/payment') > -1) {
+        var qts = document.querySelectorAll('span.quantity');
+      } else {
+        var qts = [];
+      }
+
+      if (itens.length > 0 && qts.length > 0) {
+        for (i = 0; i < itens.length; i++) {
+          _st_cart.url.push(itens[i].href);
+
+          if (qts[i].value) {
+            _st_cart.qty.push(qts[i].value);
+          } else {
+            _st_cart.qty.push(qts[i].innerHTML);
+          }
+        }
+
+        if (_st_cart.url.length > 0 && _st_cart.qty.length > 0) {
+          clearInterval(st_sleep);
+          _st_app.send_cart(_st_cart);
+        }
+      } else if (window.__sbcrt) {
+        _st_cart = {
+          id: [],
+          qty: [],
+        };
+
+        for (i = 0; i < window.__sbcrt.length; i++) {
+          var current = window.__sbcrt[i];
+
+          if (typeof current.product_id !== 'undefined') {
+            _st_cart.id.push(current.product_id);
+          }
+
+          if (typeof current.quantity !== 'undefined') {
+            _st_cart.qty.push(current.quantity);
+          }
+        }
+
+        if (_st_cart.id.length > 0 && _st_cart.qty.length > 0) {
+          clearInterval(st_sleep);
+          _st_app.send_cart(_st_cart);
+        }
+      }
+
+    }, 1000);
+  }
+} else if (location.pathname === "/checkout/orderPlaced/") {
+  _st_page = 'confirmation';
+
+  var event_billet = {
+    event: '58fe16d4becd8a51e53408aa',
+    type: 'billet',
+    invoice_id: false,
+    invoice_url: false,
+    order_id: false,
+    order_amount: 0
+  };
+
+  for (i = 0; i < dataLayer.length; i++) {
+    if (dataLayer[i].event && dataLayer[i].event === "orderPlaced") {
+      if (dataLayer[i].bankInvoiceURL) {
+        event_billet.invoice_id = dataLayer[i].transactionPayment.id;
+        event_billet.invoice_url = dataLayer[i].bankInvoiceURL;
+        event_billet.order_id = dataLayer[i].transactionId;
+        event_billet.order_amount = dataLayer[i].transactionTotal;
+      }
+      break;
+    }
+  }
+
+  if (event_billet.order_id && event_billet.invoice_url) {
+    shopback.setMetadata('billet', event_billet);
+  }
+}
+
+_st_app.set_page(_st_page);

@@ -1,0 +1,120 @@
+"use strict";
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var Campo = /*#__PURE__*/function () {
+  function Campo(_id, _idformulario, _label, _ordem, _form, _info, _obrigatorio, _opcoes) {
+    var _this = this;
+
+    _classCallCheck(this, Campo);
+
+    Object.assign(this, {
+      _id: _id,
+      _idformulario: _idformulario,
+      _label: _label,
+      _ordem: _ordem,
+      _info: _info
+    });
+    this._opcoes = [];
+    this._form = _form;
+
+    if (_opcoes) {
+      _opcoes.map(function (opcao) {
+        _this._opcoes.push(opcao);
+      });
+    }
+
+    this._name = _label.replace(" ", "_").toLowerCase();
+    this._obrigatorio = _obrigatorio ? 'true' : 'false';
+    this._simbolo_obrigatorio = _obrigatorio ? '*' : '';
+    this._tipo = this._tipoDeCampo(_form);
+    Object.freeze(this);
+  }
+
+  _createClass(Campo, [{
+    key: "id",
+    get: function get() {
+      return this._id;
+    }
+  }, {
+    key: "label",
+    get: function get() {
+      return this._label == 'Fila' ? 'Departamento' : this._label;
+    }
+  }, {
+    key: "name",
+    get: function get() {
+      return this._name;
+    }
+  }, {
+    key: "ordem",
+    get: function get() {
+      return this._ordem;
+    }
+  }, {
+    key: "tipo",
+    get: function get() {
+      return this._tipo;
+    }
+  }, {
+    key: "obrigatorio",
+    get: function get() {
+      return this._obrigatorio;
+    }
+  }, {
+    key: "simbolo_obrigatorio",
+    get: function get() {
+      return this._simbolo_obrigatorio;
+    }
+  }, {
+    key: "opcoes",
+    get: function get() {
+      return this._opcoes;
+    }
+  }, {
+    key: "idFormulario",
+    get: function get() {
+      return this._idformulario;
+    }
+  }, {
+    key: "_tipoDeCampo",
+    value: function _tipoDeCampo() {
+      switch (this._form) {
+        case 'mensagem':
+          return 'textarea';
+          break;
+
+        case 'uma opção':
+          return 'combo';
+          break;
+
+        case 'várias opções':
+          return 'comboMulti';
+          break;
+
+        case 'e-mail':
+          return 'email';
+          break;
+
+        case 'número inteiro':
+          return 'number';
+          break;
+
+        case 'data hora':
+          return 'date';
+          break;
+
+        case 'telefone':
+        default:
+          return 'text';
+          break;
+      }
+    }
+  }]);
+
+  return Campo;
+}();

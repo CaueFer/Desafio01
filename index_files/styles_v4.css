@@ -1,0 +1,137 @@
+.szb-vfr-btns {
+  margin-top: 7px;
+}
+
+.vfr__button--clean,
+.vfr__button--clean-icon {
+  text-transform: uppercase;
+  font-weight: normal;
+  font-family: 'Montserrat', sans-serif !important;
+  padding: 5px;
+  font-size: 12px;
+  line-height: normal;
+  color: #333333;
+  position: relative;
+  margin: 0 10px 0 0;
+}
+
+#szb-vfr-recommendation {
+  font-size: 13px;
+  border-bottom: 1px solid #b34a53;
+}
+
+.vfr__button--clean-icon:hover,
+.vfr__button--clean:hover {
+  text-decoration: underline;
+}
+
+button#szb-vfr-button:before {
+  background: url(https://static.sizebay.technology/1061/hangerBold.svg) center
+    center / 100% 100% no-repeat;
+  display: flex;
+  height: 21px;
+  width: 19px;
+  content: '';
+  margin-right: 10px;
+  margin-left: 2px;
+  margin-bottom: 4px;
+}
+
+button#szb-chart-button:before {
+  background: url(https://static.sizebay.technology/1061/measure.svg) center
+    center / 100% 100% no-repeat;
+  display: flex;
+  height: 24px;
+  width: 24px;
+  content: '';
+  margin-right: 10px;
+  margin-left: 2px;
+  transform: rotate(45deg) !important;
+}
+
+/*escondendo a tabela de medidas do cliente*/
+div.bf-guide__wrapper {
+  display: none;
+}
+
+/* style spark */
+
+.spark-0,
+.spark-1,
+.spark-2 {
+  position: absolute;
+  background-color: #b34a53;
+  width: 0px;
+  height: 0px;
+}
+
+.spark-0 {
+  top: 8px;
+  left: 8px;
+  animation: spark 2.4s infinite;
+}
+
+.spark-1 {
+  top: 16px;
+  left: 30px;
+  animation: spark 2.4s infinite;
+}
+
+.spark-2 {
+  top: 28px;
+  left: 12px;
+  animation: spark 2.4s 0.3s linear infinite;
+}
+
+/* style spark animation */
+
+@keyframes spark {
+  15% {
+    height: 0px;
+    width: 0px;
+    transform: scale(0) rotate(0deg);
+  }
+  30% {
+    height: 2px;
+    width: 2px;
+    transform: scale(0) rotate(45deg);
+  }
+  45% {
+    height: 4px;
+    width: 4px;
+    transform: scale(0) rotate(67.5deg);
+  }
+  50% {
+    transform: scale(1) rotate(90deg);
+    height: 6px;
+    width: 6px;
+  }
+  65% {
+    transform: scale(1) rotate(135deg);
+  }
+  80% {
+    transform: scale(1) rotate(157.5deg);
+  }
+  100% {
+    transform: scale(1) rotate(180deg);
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .vfr__container {
+    margin-left: 0px;
+    margin-top: -5px;
+  }
+  .szb-vfr-btns {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+  }
+  #szb-vfr-recommendation {
+    font-size: 14px !important;
+  }
+  .vfr__button--clean,
+  .vfr__button--clean-icon {
+    margin: 0 15px 15px 0;
+  }
+}

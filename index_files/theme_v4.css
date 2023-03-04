@@ -1,0 +1,73 @@
+:root {
+  --main-color: #000;
+}
+
+@font-face {
+  font-family: 'Trebuchet';
+  src: url('//static.sizebay.technology/782/Trebuchet-MS.ttf');
+}
+
+/* Apply font globally */
+* {
+  font-family: 'Trebuchet', sans-serif;
+}
+
+.loading-spinner {
+  border-top-color: var(--main-color);
+}
+
+.tenant__logo {
+  background-color: #fff;
+  height: 56px;
+  padding: 10px;
+  box-shadow: 1px 16px 12px 0px rgba(0, 0, 0, 0.3);
+}
+
+.button__primary {
+  background-color: var(--main-color);
+  color: #fff;
+}
+
+.button__secondary {
+  color: var(--main-color);
+}
+
+.brand-item__active {
+  background-color: var(--main-color);
+}
+
+.selector__active {
+  border: 1px solid var(--main-color);
+}
+
+.brand-item__pre:hover {
+  background-color: var(--main-color);
+  color: #fff;
+}
+
+.switcher-indicator {
+  background-color: var(--main-color);
+  color: #fff;
+}
+
+.measure-range::-webkit-slider-thumb {
+  border: 3px solid var(--main-color);
+}
+
+.flat-item-big__active,
+.flat-item__pre:hover {
+  border: 2px solid var(--main-color);
+}
+
+.flat-item__active,
+.flat-item:hover {
+  border: 1px solid var(--main-color);
+}
+
+.carousel-item__active {
+  border: 2px solid var(--main-color);
+}
+
+.calculating__loading-circle {
+  stroke: var(--main-color);
+}
